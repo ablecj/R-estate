@@ -1,6 +1,6 @@
-import { timeStamp } from "console";
+// import { timeStamp } from "console";
 import mongoose from "mongoose";
-import { type } from "os";
+// import { type } from "os";
 
 const userSchema = mongoose.Schema({
     username: {
