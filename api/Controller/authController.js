@@ -35,8 +35,8 @@ export const signin = async (req, res, next) => {
 // functionality for the google auth
 export const google = async (req, res, next) => {
   try {
-    const { name, email, photo } = req.body;
-    console.log({name, email, photo}, "data from frontend")
+    // const { name, email, photo } = req.body;
+    // console.log({name, email, photo}, "data from frontend")
     const user = await User.findOne({ email: req.body.email });
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
@@ -50,8 +50,9 @@ export const google = async (req, res, next) => {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
-        console.log(generatedPassword, "generated password")
+        // console.log(generatedPassword, "generated password")
       const hashedPassword = bcrypt.hashSync(generatedPassword, 10);
+      
       const newUser = new User({
         username:
           req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),
@@ -61,7 +62,7 @@ export const google = async (req, res, next) => {
       });
       //   saving new user
       await newUser.save();
-      console.log(newUser, "newuser")
+    //   console.log(newUser, "newuser")
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = newUser._doc;
       console.log(rest, "rest")
