@@ -18,7 +18,7 @@ export default function SignIn() {
       [e.target.id]: e.target.value,
     });
   };
-  console.log(formData);
+  // console.log(formData);
 
   const navigate = useNavigate();
 
