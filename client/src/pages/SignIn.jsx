@@ -57,6 +57,7 @@ export default function SignIn() {
           placeholder="email"
           className="border p-3 rounded-lg"
           id="email"
+          autoComplete="email"
           onChange={handleChange}
         />
 
@@ -65,6 +66,7 @@ export default function SignIn() {
           placeholder="password"
           className="border p-3 rounded-lg"
           id="password"
+          autoComplete="current-password"
           onChange={handleChange}
         />
 

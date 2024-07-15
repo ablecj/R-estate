@@ -58,6 +58,7 @@ export default function SignUp() {
           placeholder="username"
           className="border p-3 rounded-lg"
           id="username"
+          autoComplete="username"
           onChange={handleChange}
         />
 
@@ -66,6 +67,7 @@ export default function SignUp() {
           placeholder="email"
           className="border p-3 rounded-lg"
           id="email"
+          autoComplete="email"
           onChange={handleChange}
         />
 
@@ -74,6 +76,7 @@ export default function SignUp() {
           placeholder="password"
           className="border p-3 rounded-lg"
           id="password"
+          autocomplete="current-password"
           onChange={handleChange}
         />
 

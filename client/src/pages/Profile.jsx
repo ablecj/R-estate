@@ -156,6 +156,7 @@ const handleSignOut = async ()=>{
           placeholder="username"
           className="border p-3 rounded-lg"
           id="username"
+          autoComplete="username"
           defaultValue={currentUser.username}
           onChange={handleChange}
         />
@@ -165,6 +166,7 @@ const handleSignOut = async ()=>{
           placeholder="email"
           className="border p-3 rounded-lg"
           id="email"
+          autoComplete="email"
           defaultValue={currentUser.email}
           onChange={handleChange}
         />
@@ -174,6 +176,7 @@ const handleSignOut = async ()=>{
           placeholder="password"
           className="border p-3 rounded-lg"
           id="password"
+          autoComplete="current-password"
           onChange={handleChange}
         />
 
