@@ -9,6 +9,7 @@ import {
 import { app } from "../firebase.js";
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserSuccess, signOutUserStart } from "../Redux/User/userSlice.js";
 import { useDispatch } from "react-redux";
+import {Link} from 'react-router-dom';
 
 export default function Profile() {
   // using the useSelector hook for acessing the previous data
@@ -187,6 +188,7 @@ const handleSignOut = async ()=>{
         >
           {loading ? "Loading..." : "update"}
         </button>
+        <Link className="bg-green-700 text-white p-3 text-center uppercase hover:opacity-80 hover:rounded-lg" to={'/create-listing'}>Create Listing</Link>
       </form>
 
       <div className="flex justify-between mt-5">

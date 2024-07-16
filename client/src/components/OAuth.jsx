@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { app } from "../firebase";
 import { useDispatch } from "react-redux";
-import { signInSuccess } from "../Redux/User/userSlice";
+import { signInFailure, signInStart, signInSuccess } from "../Redux/User/userSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function OAuth() {
@@ -10,6 +10,7 @@ export default function OAuth() {
   const navigate = useNavigate();
   // handle click functionality for the google click
   const handleGoogleClick = async () => {
+    dispatch(signInStart())
     try {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
@@ -33,6 +34,7 @@ export default function OAuth() {
       dispatch(signInSuccess(data));
       navigate('/');
     } catch (error) {
+      dispatch(signInFailure(error.message))
       console.log("Could not signin with google", error);
     }
   };
