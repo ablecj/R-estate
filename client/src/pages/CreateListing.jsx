@@ -1,13 +1,48 @@
 import React, { useState } from "react";
+import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage';
+import {app} from '../firebase';
 
 export default function createListing() {
   // set te file value inside a state
   const [files, setFiles] = useState([]);
+  // creating the formdata for the create listing 
+  const[fromData, setFormData] = useState({
+    imageUrl: [],
+  })
+
   // function definition for handleImageSubmit
   const handleImageSubmit = (e)=> {
-      
+      // cheking the files are there or not 
+      if (files.length > 0 && files.length < 7){
+        const promises = [];
+
+        for(let i= 0; i< files.length; i++){
+          promises.push(storeImages(files[i]));
+        }
+      }
   }
   
+  // function for store image 
+  const storeImages = async (file)=> {
+    return new Promise((resolve,reject)=> {
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + file.name;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (error)=> {
+          reject(error);
+        },
+        ()=>{
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=> {
+            resolve(downloadURL);
+          })
+        }
+      )
+    });
+  }
+
   return (
     <main className="p-3 mx-auto max-w-4xl">
       <h1 className="text-3xl font-semibold text-center my-7">
