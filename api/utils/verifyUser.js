@@ -9,6 +9,6 @@ export const verifyToken = (req,res,next) => {
         if(err) return next(errorHandler(403, 'Forbidden'));
 
         req.user = user;
-        next();
+        next(); 
     })  
 }

@@ -46,7 +46,7 @@ export const google = async (req, res, next) => {
         .status(200)
         .json(rest);
     } else {
-      // from the google auth there is no password so we are reating an password
+      // from the google auth there is no password so we are creating an password
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
