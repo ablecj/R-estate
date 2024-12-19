@@ -25,6 +25,10 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   // state for success message 
   const [updateSucess, setUpdateSucess] = useState(false);
+  // state for show listing error
+  const [showListingError, setShowListingError] = useState(false);
+  // state for saving the listing from the backend.
+  const [userListings, setUserListings] = useState([]);
   // state for the formData
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
@@ -122,6 +126,24 @@ const handleSignOut = async ()=>{
     dispatch(signOutUserFailure(error.message))
   }
 }
+// handle show listing function to show the uploaded form data
+const handleShowListing = async() => {
+  try {
+    setShowListingError(false);
+    const res = await fetch(`/api/user/listings/${currentUser._id}`);
+    const data = await res.json();
+    if(data.success === false) {
+      setShowListingError(true);
+      return ;
+    }
+    // seting the response from the backend inside a state
+    setUserListings(data);
+  } catch (error) {
+    setShowListingError(true);
+  }
+}
+
+
 
   return (
     <div className="max-w-lg p-3 mx-auto">
@@ -197,6 +219,33 @@ const handleSignOut = async ()=>{
       </div>
       <p className="text-red-700 mt-5 flex justify-center">{error ? error : "" }</p>
       <p className="text-green-700 mt-5 flex justify-center">{updateSucess ? "User Updated Successfully !" : ""}</p>
+      <button onClick={handleShowListing} className="text-green-700 w-full">Show Listing</button>
+      <p className="text-red-700 mt-5">{showListingError ? "Error ins show listing !" : ""}</p>
+
+          {/* consditonaly render the user listing inside the profile  */}
+          {userListings && userListings.length > 0 &&
+
+          <div className="flex flex-col gap-4">
+            <h1 className="uppercase text-center mt-7 text-2xl font-semibold">Your Listing</h1>
+            {
+              userListings.map((listing) => (
+              <div key={listing._id} className="border rounded-lg p-3 flex justify-between items-center gap-4">
+                <Link to={`/listing/${listing._id}`}>
+                  <img src={listing.imageUrls[0]} alt="lisitng cover" className="w-16 h-16 object-contain" />
+                </Link>
+                <Link to={`/listing/${listing._id}`} className="text-slate-700 font-semibold flex-1 hover:underline truncate " >
+                <p  >{listing.name}</p>
+                </Link>
+                <div className="flex flex-col items-center">
+                  <button className="uppercase text-red-700">delete</button>
+                  <button className="uppercase text-green-700"> edit</button>
+                </div>
+              </div>
+            ))
+            }
+          </div>
+          }
+
     </div>
   );
 }
