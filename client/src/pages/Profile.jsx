@@ -143,6 +143,25 @@ const handleShowListing = async() => {
   }
 }
 
+// handleDeleteListingfor deleting the liting from the database
+const handleDeleteListing = async (lisitngId) => {
+  try {
+    const res = await fetch(`/api/listing/delete/${lisitngId}` , {
+      method: "DELETE",
+
+    });
+    const data = await res.json();
+    if(res.success === false){
+      console.log(data.message);
+      return
+    }
+    // setting the new array of filtered items which is not the id of the deleted listing 
+    setUserListings((prev)=> prev.filter((listing)=> listing._id !== lisitngId));
+  } catch (error) {
+    console.log(error);
+  }
+
+}
 
 
   return (
@@ -237,7 +256,7 @@ const handleShowListing = async() => {
                 <p  >{listing.name}</p>
                 </Link>
                 <div className="flex flex-col items-center">
-                  <button className="uppercase text-red-700">delete</button>
+                  <button className="uppercase text-red-700" onClick={()=> handleDeleteListing(listing._id)} >delete</button>
                   <button className="uppercase text-green-700"> edit</button>
                 </div>
               </div>
