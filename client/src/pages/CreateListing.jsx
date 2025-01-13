@@ -47,7 +47,7 @@ export default function createListing() {
   // state for loading 
   const [loading, setLoading] = useState(false);
 
-  console.log(formData);
+  console.log(formData, "Formdata");
 
   // function definition for handleImageSubmit
   const handleImageSubmit = (e) => {
@@ -279,7 +279,7 @@ export default function createListing() {
                 type="number"
                 id="regularPrice"
                 min="15000"
-                max="1000000"
+                max="100000000"
                 required
                 className="border-gray-300 border p-3 rounded-lg"
                 onChange={handleChange}
@@ -296,7 +296,7 @@ export default function createListing() {
                 type="number"
                 id="discountPrice"
                 min="0"
-                max="100000"
+                max="100000000"
                 required
                 className="border-gray-300 border p-3 rounded-lg"
                 onChange={handleChange}

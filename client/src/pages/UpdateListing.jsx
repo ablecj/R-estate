@@ -36,6 +36,8 @@ const UpdateListing = () => {
       furnished: false,
   
     });
+
+    console.log(formData, "fromdaata updatelisting !")
   
     // state for error handling
     const [imageUploadError, setImageUploadError] = useState(false);
@@ -253,7 +255,7 @@ const UpdateListing = () => {
             <span>Parking spot</span>
           </div>
           <div className="flex gap-2">
-            <input type="checkbox" id="furnished" className="w-5" onChange={handleChange} value={formData.furnsihed} />
+            <input type="checkbox" id="furnished" className="w-5" onChange={handleChange} value={formData.furnished} />
             <span>Furnished</span>
           </div>
           <div className="flex gap-2">
@@ -294,7 +296,7 @@ const UpdateListing = () => {
               type="number"
               id="regularPrice"
               min="15000"
-              max="1000000"
+              max="100000000"
               required
               className="border-gray-300 border p-3 rounded-lg"
               onChange={handleChange}
@@ -311,7 +313,7 @@ const UpdateListing = () => {
               type="number"
               id="discountPrice"
               min="0"
-              max="100000"
+              max="100000000"
               required
               className="border-gray-300 border p-3 rounded-lg"
               onChange={handleChange}

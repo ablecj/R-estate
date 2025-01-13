@@ -12,7 +12,7 @@ import '../styles/ListingCarousal.css';
 import { Navigation } from 'swiper/modules';
 
 const ListingCarousel = ({ listingProp }) => {
-    console.log(listingProp)
+    // console.log(listingProp)
   return (
     <div>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
