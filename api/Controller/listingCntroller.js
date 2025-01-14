@@ -67,3 +67,64 @@ export const getListing = async (req, res, next)=> {
         next(error);
     }
 }
+
+// getListings functionality for search and find all lisitngs
+export const getListings = async(req, res, next)=> {
+    try {
+        // limit the output
+        const limit = parseInt(req.query.limit) || 9;
+        // start index 
+        const startIndex = parseInt(req.query.startIndex) || 0;
+        // offer
+        let offer = req.query.offer;
+        // consdition check for there is no offer or offer is undefined
+        if(offer === undefined || offer === 'false' ){
+            offer = {$in: [false, true]};
+        }
+        // furnished
+        let furnished = req.query.furnished;
+        // condition for furnished is true or flase
+        if(furnished === undefined || furnished === 'false'){
+            furnished = { $in: [false, true]};
+        }
+        // parking
+        let parking = req.query.parking;
+        // conditon for parking is true or false 
+        if(parking === undefined || parking === 'false') {
+            parking = { $in: [false, true]};
+        }
+        // type
+        let type = req.query.type;
+        // condition for the type is rent or all
+        if(type === undefined || type === 'all' ){
+            type = {$in: ['sale', 'rent']};
+        }
+        // search term for searching the listings
+        const searchTerm = req.query.searchTerm || '';
+        // sort the result with the time 
+        const sort = req.query.sort || 'createdAt' ;
+        // order the sorted result
+        const order = req.query.order || 'desc';
+
+        // finding the lisitings from the listings collections
+        const listings = await Listing.find({
+            name: {$regex: searchTerm, $options: 'i'},
+            type,
+            offer,
+            furnished,
+            parking
+        }).sort(
+            {[sort]: order}
+
+        ).limit(limit).skip(startIndex);
+
+        return res.status(200).json(listings)
+
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
