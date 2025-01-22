@@ -17,7 +17,8 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   // state for storing the listings from the backend
   const [listings, setListings] = useState([]);
-  console.log(listings, "listings");
+  // state for showmore button and show more listings
+  const[showMore, setShowMore] = useState(false);
 
   //  useEffect to fetch the search term
   useEffect(() => {
@@ -55,6 +56,11 @@ const Search = () => {
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+      if(data.length > 8){
+        setShowMore(true);
+      }else{
+        setShowMore(false);
+      }
       setListings(data);
       setLoading(false);
     };
@@ -112,6 +118,26 @@ const Search = () => {
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
+
+  // onShowMoreClick function definition for showing more listing datas
+  const onShowMoreClick = async () => {
+    // getting the listings length of the array
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    // setting the start index for pagination
+    urlParams.set('startIndex', startIndex);
+    // search query from the url
+    const SearchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${SearchQuery}`);
+    const data = await res.json();
+    if(data.length < 9) {
+      setShowMore(false)
+    }
+    setListings([...listings, ...data]);
+
+
+  }
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -248,6 +274,19 @@ const Search = () => {
             listings.map((listing) => (
               <ListingItem key={listing._id} listing={listing} />
             ))}
+            {
+              showMore && (
+                <button
+                onClick={
+                  onShowMoreClick
+                }
+                className="text-green-700 hover:underline p-7 
+                  w-full text-center"
+                >
+                  show more
+                </button>
+              )
+            }
         </div>
       </div>
     </div>
