@@ -15,7 +15,12 @@ import Search from "./pages/Search";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <Header />
 
       <Routes>
@@ -29,10 +34,11 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-listing" element={<CreateListing />} />
-          <Route path="/update-listing/:listingId" element={<UpdateListing />} /> 
+          <Route
+            path="/update-listing/:listingId"
+            element={<UpdateListing />}
+          />
         </Route>
-
-        
       </Routes>
     </BrowserRouter>
   );
