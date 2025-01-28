@@ -93,14 +93,60 @@ const Home = () => {
             offerListings && offerListings.length > 0 && (
               <div className="">
                 <div className="">
-                  <h2>Recent offers</h2>
-                  <Link to={'/search?offer=true'}>
+                  <h2 className="text-2xl font-semibold 
+                  text-slate-600" >Recent offers</h2>
+                  <Link className="text-sm text-blue-800 
+                    hover:underline mb-2" to={'/search?offer=true'}>
                     Show more offers...
                   </Link>
                 </div>
                   <div className="flex flex-wrap gap-4">
                     {
                       offerListings.map((listing, index)=> (
+                        <ListingItem listing={listing} key={index} />
+                      ))
+                    }
+                  </div>
+              </div>
+            )
+          }
+          {/* listing of rent properties */}
+          {
+            rentListings && rentListings.length > 0 && (
+              <div className="">
+                <div className="">
+                  <h2 className="text-2xl font-semibold 
+                  text-slate-600" >Recent places for rent</h2>
+                  <Link className="text-sm text-blue-800 
+                    hover:underline mb-2" to={'/search?type=rent'}>
+                    Show more places for rent...
+                  </Link>
+                </div>
+                  <div className="flex flex-wrap gap-4">
+                    {
+                      rentListings.map((listing, index)=> (
+                        <ListingItem listing={listing} key={index} />
+                      ))
+                    }
+                  </div>
+              </div>
+            )
+          }
+          {/* listing for sale properties */}
+          {
+            salesListings && salesListings.length > 0 && (
+              <div className="">
+                <div className="">
+                  <h2 className="text-2xl font-semibold  
+                  text-slate-600" >Recent places for sale</h2>
+                  <Link className="text-sm text-blue-800 
+                    hover:underline mb-2" to={'/search?type=sale'}>
+                    Show more places for sale...
+                  </Link>
+                </div>
+                  <div className="flex flex-wrap gap-4">
+                    {
+                      salesListings.map((listing, index)=> (
                         <ListingItem listing={listing} key={index} />
                       ))
                     }
