@@ -9,6 +9,7 @@
     "start": "node api/index.js",
    "build": "npm install && cd client && npm install && rm -rf node_modules/.vite && npm rebuild && npm run build"
 
+
   },
   "engines": {
     "node": "20.x"
