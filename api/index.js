@@ -16,7 +16,10 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow requests from Vite frontend
+    credentials: true, // Allow cookies
+  }));
 
 app.use(cookieParser());
 
@@ -31,6 +34,12 @@ app.listen(3000, () => {
 
 });
 
+app.use('/api/user', userRouter);
+
+app.use('/api/auth', authRouter);
+
+app.use('/api/listing', listingRouter);
+
 // Create a __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,11 +52,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
-app.use('/api/user', userRouter);
 
-app.use('/api/auth', authRouter);
-
-app.use('/api/listing', listingRouter);
 
 // middleware for calling error 
 app.use((err,req,res,next)=> {

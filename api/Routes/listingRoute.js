@@ -14,7 +14,7 @@ router.post('/update/:id', verifyToken, updateListing);
 // route for getting the listing details
 router.get('/getListing/:id', getListing);
 // get all listings and search functionality route
-router.get('/get', getListings)
+router.get('/get', getListings);
 
 
 
